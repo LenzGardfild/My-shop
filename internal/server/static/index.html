@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск заказа</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        #result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; }
+        input, button { font-size: 1rem; padding: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Поиск заказа по ID</h2>
+    <input type="text" id="orderId" placeholder="Введите order_uid" size="30">
+    <button onclick="findOrder()">Найти</button>
+    <div id="result"></div>
+    <script>
+        function findOrder() {
+            const id = document.getElementById('orderId').value.trim();
+            const result = document.getElementById('result');
+            if (!id) {
+                result.textContent = 'Введите order_uid';
+                return;
+            }
+            result.textContent = 'Загрузка...';
+            fetch(`/order/${id}`)
+                .then(r => {
+                    if (!r.ok) throw new Error('Заказ не найден');
+                    return r.json();
+                })
+                .then(data => {
+                    result.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(e => {
+                    result.textContent = e.message;
+                });
+        }
+    </script>
+</body>
+</html>
