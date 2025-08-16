@@ -38,10 +38,24 @@ go run ./cmd/main.go
 
 ---
 
+
 ## Kafka
 
 - Сервис автоматически слушает топик `orders` в Kafka (`localhost:9092`).
-- Для теста можно отправить сообщение в Kafka с помощью любого клиента (например, [kcat](https://github.com/edenhill/kcat)) или скрипта.
+- Для теста можно отправить сообщение в Kafka с помощью любого клиента (например, [kcat](https://github.com/edenhill/kcat)), скрипта или встроенного Go-продюсера.
+
+### Отправка заказа в Kafka через встроенный producer
+
+В проекте есть утилита [`producer.go`](producer.go) для отправки заказов в Kafka.
+
+1. Подготовьте файл с заказом в формате JSON (пример — ниже или в `model.json`).
+2. Запустите producer:
+
+```sh
+go run producer.go order.json
+```
+
+Сообщение будет отправлено в топик `orders` на `localhost:9092`.
 
 ## Структура проекта
 - `cmd/main.go` — точка входа
