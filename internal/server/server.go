@@ -26,6 +26,12 @@ func New() *Server {
 	}
 	orderCache := cache.New()
 	orders, err := dbConn.LoadAllOrders(context.Background())
+	if err == nil && len(orders) == 0 {
+		if err := db.SeedTestOrder(dbConn); err != nil {
+			log.Printf("Ошибка при добавлении тестового заказа: %v", err)
+		}
+		orders, _ = dbConn.LoadAllOrders(context.Background())
+	}
 	if err == nil {
 		for _, o := range orders {
 			orderCache.Set(o.OrderUID, o)
