@@ -55,3 +55,7 @@ CREATE TABLE IF NOT EXISTS items (
     brand VARCHAR(64),
     status INTEGER
 );
+
+-- Уникальные индексы для ON CONFLICT (order_uid)
+CREATE UNIQUE INDEX IF NOT EXISTS deliveries_order_uid_idx ON deliveries(order_uid);
+CREATE UNIQUE INDEX IF NOT EXISTS payments_order_uid_idx ON payments(order_uid);

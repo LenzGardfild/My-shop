@@ -3,9 +3,14 @@ package db
 import (
 	"context"
 	"my-shop/internal/model"
+	"time"
 )
 
 func SeedTestOrder(db *DB) error {
+	dt, err := time.Parse(time.RFC3339, "2021-11-26T06:22:19Z")
+	if err != nil {
+		return err
+	}
 	order := &model.Order{
 		OrderUID:    "b563feb7b2b84b6test",
 		TrackNumber: "WBILMTESTTRACK",
@@ -52,7 +57,7 @@ func SeedTestOrder(db *DB) error {
 		DeliveryService:   "meest",
 		Shardkey:          "9",
 		SmID:              99,
-		DateCreated:       "2021-11-26T06:22:19Z",
+		DateCreated:       dt,
 		OofShard:          "1",
 	}
 	return db.SaveOrder(context.Background(), order)
