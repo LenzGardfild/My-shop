@@ -66,7 +66,7 @@ go run producer.go order.json
 - `internal/server` — HTTP сервер и веб-интерфейс
 
 ## Пример сообщения заказа (JSON)
-См. файл `model.json` в проекте.
+См. файл `order.json` в проекте.
 
 ---
 
